@@ -20,14 +20,15 @@ accept_conns(Listen) ->
    {ok, Socket} = gen_tcp:accept(Listen),
    io:format("got a connection!~n"),
    %% spawn another process which will accept the next connection
-   spawn(fun() -> read_from_sock(Socket) end),
+   Pid = spawn(fun() -> read_from_sock(Socket) end),
+   %% transfer control to the spawned process
+   gen_tcp:controlling_process(Socket, Pid),
    %% enter a read loop with this process to echo from socket
    accept_conns(Listen).
 
 read_from_sock(Socket) ->
-   io:format("spawned proc to read from socket~n"),
-   %% XXX: why isn't this little guy getting messages? we must
-   %% transfer ownership?
+   %% our parent has set us as the controlling process, this is an
+   %% active socket,  now we'll process messages... 
    receive
        {tcp, Socket, Data} ->
 	       io:format("echoing: ~p~n", [Data]),
