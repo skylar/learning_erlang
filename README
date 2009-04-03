@@ -8,3 +8,5 @@ echo_server - a simple tcp echo server that accepts a connection,
 echo_server_multiple - a more complex tcp echo server that spawns
               one process per connection and can handle multiple
 			  connections in parallel
+parse_csv -   A program to read from stdin, parsing CSV data into
+              distinct strings.
