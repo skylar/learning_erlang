@@ -1,2 +1,10 @@
 A collection of simple erlang programs that are collected
 here as I learn erlang.
+
+Here's what's contained, and the order in which I wrote them:
+
+echo_server - a simple tcp echo server that accepts a connection,
+              echo's packets back, and exits
+echo_server_multiple - a more complex tcp echo server that spawns
+              one process per connection and can handle multiple
+			  connections in parallel
